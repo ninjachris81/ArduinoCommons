@@ -1,9 +1,9 @@
 #ifndef LOG_H
 #define LOG_H
 
-//#define NO_SERIAL
+//#define NO_LOG_SERIAL
 
-#ifndef NO_SERIAL
+#ifndef NO_LOG_SERIAL
   #define LOG_INIT() Serial.begin(115200)
   #define LOG_PRINT(msg) Serial.print(msg)
   #define LOG_PRINTLN(msg) Serial.println(msg)

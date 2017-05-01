@@ -8,13 +8,14 @@
 #endif
 
 #define SMOOTH_SIZE 10
-#define ZERO_VALUE 0
+#define INIT_ZERO_VALUE 0.0
 
 class SmoothValue {
 	
 public:
-	SmoothValue() {
-		for (uint8_t i=0;i<SMOOTH_SIZE;i++) values[i] = ZERO_VALUE;
+	SmoothValue(float initValue = INIT_ZERO_VALUE) {
+		for (uint8_t i=0;i<SMOOTH_SIZE;i++) values[i] = initValue;
+		mInitValue = initValue;
 	}
 
 	float getValue() {
@@ -22,7 +23,7 @@ public:
 	  uint8_t vCount = 0;
 	  
 	  for (uint8_t i=0;i<SMOOTH_SIZE;i++) {
-		if (values[i]==0) break;
+		if (values[i]==mInitValue) break;
 		returnValue+=values[i];
 		vCount++;
 	  }
@@ -40,6 +41,7 @@ public:
 protected:
 	uint8_t valueIndex = 0;
 	float values[SMOOTH_SIZE];
+	float mInitValue = INIT_ZERO_VALUE;
 	
 };
 	
