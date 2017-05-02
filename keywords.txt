@@ -7,6 +7,8 @@
 ###########################################
 
 SmoothValue	KEYWORD1
+FiveKeysHandler KEYWORD1
+FKFeedbackHandler KEYWORD1
 
 ###########################################
 # Methods and Functions (KEYWORD2)
