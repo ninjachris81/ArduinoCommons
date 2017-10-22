@@ -8,9 +8,11 @@ public:
 	ESP8266TsLogger();
 	~ESP8266TsLogger();
 	
-	static void init(uint8_t txPin, uint8_t rxPin, int baudRate=9600);
+	static void init(uint8_t txPin, uint8_t rxPin, unsigned long baudRate=115200);
 	
 	static void postData(String wwwFormEncodedPayload);
+	
+	static String readData();
 	
 private:
 	static SoftwareSerial* ss;

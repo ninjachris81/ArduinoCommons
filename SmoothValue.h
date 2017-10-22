@@ -13,8 +13,10 @@
 class SmoothValue {
 	
 public:
-	SmoothValue(float initValue = INIT_ZERO_VALUE) {
-		for (uint8_t i=0;i<SMOOTH_SIZE;i++) values[i] = initValue;
+	SmoothValue(uint8_t smoothSize = SMOOTH_SIZE, float initValue = INIT_ZERO_VALUE) {
+		this->smoothSize = smoothSize;
+		values = new float[smoothSize];
+		for (uint8_t i=0;i<smoothSize;i++) values[i] = initValue;
 		mInitValue = initValue;
 	}
 
@@ -22,7 +24,7 @@ public:
 	  double returnValue = 0.0;
 	  uint8_t vCount = 0;
 	  
-	  for (uint8_t i=0;i<SMOOTH_SIZE;i++) {
+	  for (uint8_t i=0;i<smoothSize;i++) {
 		if (values[i]==mInitValue) break;
 		returnValue+=values[i];
 		vCount++;
@@ -34,13 +36,14 @@ public:
 	void pushValue(float value) {
 	  values[valueIndex] = value;
 	  valueIndex++;
-	  if (valueIndex>=SMOOTH_SIZE) valueIndex = 0;
+	  if (valueIndex>=smoothSize) valueIndex = 0;
 	}
 	
 	
 protected:
+	uint8_t smoothSize = SMOOTH_SIZE;
 	uint8_t valueIndex = 0;
-	float values[SMOOTH_SIZE];
+	float* values;
 	float mInitValue = INIT_ZERO_VALUE;
 	
 };

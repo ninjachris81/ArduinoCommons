@@ -5,6 +5,7 @@
 
 #ifndef NO_LOG_SERIAL
   #define LOG_INIT() Serial.begin(115200)
+  #define LOG_INIT2(baudrate) Serial.begin(baudrate)
   #define LOG_PRINT(msg) Serial.print(msg)
   #define LOG_PRINTLN(msg) Serial.println(msg)
   
