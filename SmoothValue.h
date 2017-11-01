@@ -14,6 +14,10 @@ class SmoothValue {
 	
 public:
 	SmoothValue(uint8_t smoothSize = SMOOTH_SIZE, float initValue = INIT_ZERO_VALUE) {
+		init(smoothSize, initValue);
+	}
+	
+	void init(uint8_t smoothSize, float initValue) {
 		this->smoothSize = smoothSize;
 		values = new float[smoothSize];
 		for (uint8_t i=0;i<smoothSize;i++) values[i] = initValue;
