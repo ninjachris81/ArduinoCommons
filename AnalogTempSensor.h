@@ -29,6 +29,10 @@ public:
 		value.pushValue(knownR * ((VOLTAGE_IN/((getRaw() * VOLTAGE_IN)/1024.0)) -1));
 	}
 	
+	float getValue() {
+		return value.getValue();		// todo: transform
+	}
+	
 private:
 	float knownR;
 	

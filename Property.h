@@ -55,13 +55,15 @@ public:
   
 private:
 	uint8_t id = 0;
-	VALUE_TYPE value;
 	bool simulated = false;
   
 	ValueChangeListener* valueChangeListeners[MAX_VALUE_CHANGE_LISTENERS];
 	uint8_t listenerCount = 0;
 
 	
+protected:
+	VALUE_TYPE value;
+
 	bool _setValue(VALUE_TYPE value, bool fromSimulated) {
 		if (this->simulated && !fromSimulated) return false;			// ignore
 		

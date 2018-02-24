@@ -29,12 +29,13 @@ public:
 	  uint8_t vCount = 0;
 	  
 	  for (uint8_t i=0;i<smoothSize;i++) {
-		if (values[i]==mInitValue) break;
+		if (values[i]==mInitValue) continue;
 		returnValue+=values[i];
 		vCount++;
 	  }
 	  
-	return (returnValue / vCount);
+	  if (vCount==0) return mInitValue;	  
+	  return (returnValue / vCount);
   }
 	
 	void pushValue(float value) {
