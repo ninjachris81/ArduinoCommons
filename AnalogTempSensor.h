@@ -26,13 +26,34 @@ public:
 	}
 	
 	void read() {
-		value.pushValue(knownR * ((VOLTAGE_IN/((getRaw() * VOLTAGE_IN)/1024.0)) -1));
+		value.pushValue(getRaw());
 	}
 	
-	float getValue() {
-		return value.getValue();		// todo: transform
+	float getValueC() {
+		return toCelsius(value.getValue());
 	}
 	
+	float getValueF() {
+		return celsiusToFahrenheit(toCelsius(value.getValue()));
+	}
+
+	float toCelsius(float RawADC) {  //Function to perform the fancy math of the Steinhart-Hart equation
+		return toCelsius(RawADC, knownR);
+	}
+
+	static float toCelsius(float RawADC, float knownR) {  //Function to perform the fancy math of the Steinhart-Hart equation
+		double Temp;
+		Temp = log(((10240000/RawADC) - knownR));
+		Temp = 1 / (0.001129148 + (0.000234125 + (0.0000000876741 * Temp * Temp ))* Temp );
+		Temp = Temp - 273.15;              // Convert Kelvin to Celsius
+		//Temp = (Temp * 9.0)/ 5.0 + 32.0;
+		return Temp;
+	}
+	
+	static float celsiusToFahrenheit(float tempC) {
+		return (tempC * 9.0)/ VOLTAGE_IN + 32.0; // Celsius to Fahrenheit - comment out this line if you need Celsius
+	}
+
 private:
 	float knownR;
 	

@@ -13,7 +13,7 @@ ESP8266_TS_Logger KEYWORD1
 Property KEYWORD1
 AnalogSensor KEYWORD1
 AnalogTempSensor KEYWORD1
-ValueChangeListener KEYWORD 1
+ValueChangeListener KEYWORD1
 
 ###########################################
 # Methods and Functions (KEYWORD2)
