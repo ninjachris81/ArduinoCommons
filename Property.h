@@ -7,7 +7,12 @@
 #include "WProgram.h"
 #endif
 
+#include "LogHelper.h"
+
 #define MAX_VALUE_CHANGE_LISTENERS 6
+
+//#define SUPPORT_OUTPUT_ON_CHANGE
+//#define SUPPORT_PROPERTY_NAME
 
 template < typename VALUE_TYPE >
 class Property {
@@ -15,7 +20,7 @@ public:
 
 	class ValueChangeListener {
 	public:
-		virtual void onPropertyValueChange(uint8_t id, VALUE_TYPE value) = 0;
+		virtual void onPropertyValueChange(uint8_t id, VALUE_TYPE newValue, VALUE_TYPE oldValue) = 0;
 	};
 	
 	Property() {
@@ -28,7 +33,18 @@ public:
 	void init(uint8_t id, VALUE_TYPE initialValue = 0) {
 		this->id = id;
 		this->value = initialValue;
+#ifdef SUPPORT_PROPERTY_NAME
+		this->name = "";
+#endif
 	}
+
+#ifdef SUPPORT_PROPERTY_NAME
+	void init(uint8_t id, String name, VALUE_TYPE initialValue = 0) {
+		this->id = id;
+		this->value = initialValue;
+		this->name = name;
+	}
+#endif
 
 	VALUE_TYPE getValue() {
 		return this->value;
@@ -52,11 +68,31 @@ public:
 		valueChangeListeners[listenerCount] = listener;
 		listenerCount++;
 	}
+	
+#ifdef SUPPORT_OUTPUT_ON_CHANGE
+	void setOutputOnChange(bool outputChange) {
+		this->outputChange = outputChange;
+	}
+#endif
   
+#ifdef SUPPORT_PROPERTY_NAME
+	void setName(String name) {
+		this->name = name;
+	}
+#endif
+
 private:
 	uint8_t id = 0;
 	bool simulated = false;
-  
+	
+#ifdef SUPPORT_OUTPUT_ON_CHANGE
+	bool outputChange = false;
+#endif
+
+#ifdef SUPPORT_PROPERTY_NAME
+	String name;
+#endif
+	
 	ValueChangeListener* valueChangeListeners[MAX_VALUE_CHANGE_LISTENERS];
 	uint8_t listenerCount = 0;
 
@@ -68,11 +104,25 @@ protected:
 		if (this->simulated && !fromSimulated) return false;			// ignore
 		
 		if (this->value!=value) {
+			VALUE_TYPE oldValue = this->value;
 			this->value = value;
 
 			for (uint8_t i=0; i<listenerCount; i++) {
-			  valueChangeListeners[i]->onPropertyValueChange(id, value);
+			  valueChangeListeners[i]->onPropertyValueChange(id, value, oldValue);
 			}
+			
+#ifdef SUPPORT_OUTPUT_ON_CHANGE
+			if (outputChange) {
+#ifdef SUPPORT_PROPERTY_NAME
+				LOG_PRINT(name);
+				LOG_PRINT(" ");
+#endif
+				LOG_PRINT(id);
+				LOG_PRINT(F(" -> "));
+				LOG_PRINTLN(value);
+			}
+#endif			
+			
 			return true;
 		} else {
 			return false;
