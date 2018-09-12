@@ -20,7 +20,6 @@ public:
 		this->animationSpeed = animationSpeed;
 		this->animationDelta = animationDelta;
 		this->toSetValue = initialValue;
-		this->lastChange = millis();
 	}
 	
 	void update() {
