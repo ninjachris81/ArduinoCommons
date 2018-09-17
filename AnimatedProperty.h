@@ -9,6 +9,8 @@
 
 #include "Property.h"
 
+#define ANIMATION_TRIGGER_MS 100
+
 template < typename VALUE_TYPE >
 class AnimatedProperty : public Property<VALUE_TYPE> {
 public:
@@ -36,10 +38,12 @@ public:
 	}
 	
 	bool setValue(VALUE_TYPE value) {
+		if (this->value==value) return true;
+		
 		if (animationDelta==0 && animationSpeed==0) {
 			return this->_setValue(value);
 		} else if (animationSpeed!=0) {
-			animationDelta = abs(toSetValue - value) / animationSpeed;
+			animationDelta = abs(toSetValue - value) / (animationSpeed / ANIMATION_TRIGGER_MS);
 			toSetValue = value;
 			return false;
 		} else if (animationDelta!=0) {
