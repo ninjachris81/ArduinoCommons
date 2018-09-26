@@ -52,6 +52,10 @@ public:
 		}
 	}
 	
+	bool setValueDirect(VALUE_TYPE value) {
+		return this->_setValue(value);
+	}
+
 	bool isAnimating() {
 		return toSetValue!=this->value;
 	}
