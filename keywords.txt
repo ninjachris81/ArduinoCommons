@@ -14,9 +14,14 @@ Property KEYWORD1
 AnalogSensor KEYWORD1
 AnalogTempSensor KEYWORD1
 ValueChangeListener KEYWORD1
+ConfigurationProvider KEYWORD1
 
 ###########################################
 # Methods and Functions (KEYWORD2)
+
+registerValueChangeListener KEYWORD2
+setSimulatedValue			KEYWORD2
+setSimulationOff			KEYWORD2
 ###########################################
 ###########################################
 # Constants (LITERAL1)
