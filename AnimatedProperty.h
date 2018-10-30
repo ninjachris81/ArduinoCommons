@@ -53,6 +53,7 @@ public:
 	}
 	
 	bool setValueDirect(VALUE_TYPE value) {
+		toSetValue = value;
 		return this->_setValue(value);
 	}
 

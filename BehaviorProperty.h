@@ -24,7 +24,8 @@ public:
 	
 	void update() {
 		if (toSetValue!=this->value && millis() - lastChange >= minChangeMs) {
-			this->_setValue(toSetValue, false);
+			return this->_setValue(toSetValue);
+			
 			lastChange = millis();
 		}
 	}

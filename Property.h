@@ -13,6 +13,7 @@
 
 //#define SUPPORT_OUTPUT_ON_CHANGE
 //#define SUPPORT_PROPERTY_NAME
+//#define SUPPORT_SIMULATION
 
 template < typename VALUE_TYPE >
 class Property {
@@ -83,7 +84,10 @@ public:
 
 private:
 	uint8_t id = 0;
+	
+#ifdef SUPPORT_SIMULATION
 	bool simulated = false;
+#endif
 	
 #ifdef SUPPORT_OUTPUT_ON_CHANGE
 	bool outputChange = false;
@@ -100,9 +104,11 @@ private:
 protected:
 	VALUE_TYPE value;
 
-	bool _setValue(VALUE_TYPE value, bool fromSimulated) {
+	bool _setValue(VALUE_TYPE value, bool fromSimulated = false) {
+#ifdef SUPPORT_SIMULATION
 		if (this->simulated && !fromSimulated) return false;			// ignore
-		
+#endif
+
 		if (this->value!=value) {
 			VALUE_TYPE oldValue = this->value;
 			this->value = value;
