@@ -28,6 +28,8 @@
   
 #else
 	#define LOG_INIT()
+	#define LOG_INIT2(baudrate)
+	#define LOG_WAIT()
 	#define LOG_PRINT(msg)
 	#define LOG_PRINTLN(msg)
 

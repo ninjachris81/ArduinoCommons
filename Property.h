@@ -70,6 +70,12 @@ public:
 		listenerCount++;
 	}
 	
+	void fireChangeEvent() {
+		for (uint8_t i=0; i<listenerCount; i++) {
+		  valueChangeListeners[i]->onPropertyValueChange(id, value, value);
+		}
+	}
+	
 #ifdef SUPPORT_OUTPUT_ON_CHANGE
 	void setOutputOnChange(bool outputChange) {
 		this->outputChange = outputChange;
@@ -113,9 +119,7 @@ protected:
 			VALUE_TYPE oldValue = this->value;
 			this->value = value;
 
-			for (uint8_t i=0; i<listenerCount; i++) {
-			  valueChangeListeners[i]->onPropertyValueChange(id, value, oldValue);
-			}
+			invokeListeners(value, oldValue);
 			
 #ifdef SUPPORT_OUTPUT_ON_CHANGE
 			if (outputChange) {
@@ -134,6 +138,13 @@ protected:
 			return false;
 		}
 	}
+
+	void invokeListeners(VALUE_TYPE value, VALUE_TYPE oldValue) {
+		for (uint8_t i=0; i<listenerCount; i++) {
+		  valueChangeListeners[i]->onPropertyValueChange(id, value, oldValue);
+		}
+	}
+
 	
 };
 
