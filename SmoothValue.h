@@ -1,6 +1,8 @@
 #ifndef SMOOTHVALUE_H
 #define SMOOTHVALUE_H
 
+#include <LogHelper.h>
+
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
 #else
@@ -42,6 +44,16 @@ public:
 	  values[valueIndex] = value;
 	  valueIndex++;
 	  if (valueIndex>=smoothSize) valueIndex = 0;
+	}
+	
+	void printValues() {
+		LOG_PRINTLN(F("-----------"));
+	  for (uint8_t i=0;i<smoothSize;i++) {
+		  LOG_PRINTLN(values[i]);
+	  }
+		LOG_PRINTLN(F("-----------"));
+		LOG_PRINTLN(getValue());
+		LOG_PRINTLN(F("-----------"));
 	}
 	
 	
