@@ -71,9 +71,7 @@ public:
 	}
 	
 	void fireChangeEvent() {
-		for (uint8_t i=0; i<listenerCount; i++) {
-		  valueChangeListeners[i]->onPropertyValueChange(id, value, value);
-		}
+		invokeListeners(value, value);
 	}
 	
 #ifdef SUPPORT_OUTPUT_ON_CHANGE
