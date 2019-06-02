@@ -16,7 +16,7 @@ public:
 	
 	bool setValue(double newValue) {
 		if (abs(value-newValue)>tolerance) {
-			return _setValue(value, false);
+			return _setValue(newValue, false);
 		}
 	}
 	
