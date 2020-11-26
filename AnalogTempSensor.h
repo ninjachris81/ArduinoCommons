@@ -40,10 +40,11 @@ public:
 	float toCelsius(float RawADC) {  //Function to perform the fancy math of the Steinhart-Hart equation
 		return toCelsius(RawADC, knownR);
 	}
-
+	
 	static float toCelsius(float RawADC, float knownR) {  //Function to perform the fancy math of the Steinhart-Hart equation
 		double Temp;
-		Temp = log(((10240000/RawADC) - knownR));
+		//Temp = log(((10240000/RawADC) - knownR));
+		Temp = log(10000.0*((1024.0/RawADC-1))); 		// TODO: knownR
 		Temp = 1 / (0.001129148 + (0.000234125 + (0.0000000876741 * Temp * Temp ))* Temp );
 		Temp = Temp - 273.15;              // Convert Kelvin to Celsius
 		//Temp = (Temp * 9.0)/ 5.0 + 32.0;

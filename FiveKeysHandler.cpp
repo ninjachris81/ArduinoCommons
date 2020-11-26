@@ -1,7 +1,9 @@
 #include "FiveKeysHandler.h"
 
+
 FiveKeysHandler::FiveKeysHandler(uint8_t analogPin) {
 	this->analogPin = analogPin;
+	this->lastButton = ANALOG_BTN_NONE;
 }
 
 void FiveKeysHandler::init(FKFeedbackHandler* handler) {
@@ -25,10 +27,12 @@ void FiveKeysHandler::update() {
 	else if (v > 160 && v < 170) button = ANALOG_BTN_RIGHT; //RIGHT
 	else if (v > 340 && v < 350) button = ANALOG_BTN_ENTER; //ENTER
 	
-	if (button!=currentButton)	 {
-		callHandler(currentButton, false);
-		currentButton = button;
+	
+	if (button!=this->lastButton) {
+		if (this->lastButton!=ANALOG_BTN_NONE) callHandler(this->lastButton, false);
 		callHandler(button, true);
+		
+		this->lastButton = button;
 	}
 	
 }

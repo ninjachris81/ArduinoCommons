@@ -19,24 +19,19 @@ public:
 		Property<VALUE_TYPE>::init(id, initialValue);
 		this->minChangeMs = minChangeMs;
 		this->toSetValue = initialValue;
-		this->lastChange = millis();
+		this->lastChange = 0;
 	}
 	
 	void update() {
-		if (toSetValue!=this->value && millis() - lastChange >= minChangeMs) {
-			return this->_setValue(toSetValue);
-			
+		if (toSetValue!=this->value && (millis() - lastChange >= minChangeMs || lastChange==0)) {
+			this->_setValue(toSetValue);
 			lastChange = millis();
 		}
 	}
 	
 	bool setValue(VALUE_TYPE value) {
-		if (minChangeMs==0) {
-			return this->_setValue(value, false);
-		} else {
-			toSetValue = value;
-			return false;
-		}
+		toSetValue = value;
+		return true;
 	}
 	
 private:

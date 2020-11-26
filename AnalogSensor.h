@@ -32,6 +32,14 @@ public:
 		return analogRead(addr);
 	}
 	
+	void simulateValue(float v) {
+		value.pushValue(v);
+	}
+	
+	float getSimulatedValue() {
+		return value.getValue();
+	}
+	
 protected:
 	int addr;
 	SmoothValue value;

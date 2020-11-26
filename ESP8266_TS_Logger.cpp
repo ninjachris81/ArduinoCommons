@@ -1,3 +1,5 @@
+#if defined(ESP8266)
+
 #include "ESP8266_TS_Logger.h"
 
 SoftwareSerial* ESP8266TsLogger::ss = NULL;
@@ -25,3 +27,5 @@ String ESP8266TsLogger::readData() {
 		return "";
 	}
 }
+
+#endif

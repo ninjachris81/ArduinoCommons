@@ -36,7 +36,7 @@ public:
 private:
 	FKFeedbackHandler* handler = NULL;
 	uint8_t analogPin = 0;
-	uint8_t currentButton = ANALOG_BTN_NONE;
+	uint8_t lastButton = ANALOG_BTN_NONE;
 	
 	void callHandler(uint8_t btn, bool isDown);
 };
